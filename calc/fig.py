@@ -7,10 +7,13 @@ def application(environ, start_response):
     b = d.get('b', ['-1'])[0]
 	plus = 0
 	mult = 0
-    if '' not in [a, b]:
+	try:
         a, b = int(a), int(b)
         plus = a + b
 		mult = a * b
+	except ValueError:
+	   plus = "Error!! Not number"
+	   mult = "Error!! Not number"
     response_body = html % {'plus':plus, 'mult':mult}
     start_response('200 OK', [
         ('Content-Type', 'text/html'),
